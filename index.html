@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNTIL Mega-nav Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --paper: #F4F5F9;
+    --panel: #FFFFFF;
+    --ink: #14161F;
+    --ink-2: #464B5F;
+    --mute: #7B8096;
+    --line: #CFD3E0;
+    --line-2: #E4E7EF;
+    --hatch-a: #E9EBF2;
+    --hatch-b: #D9DCE7;
+    --accent: #1526D0;
+    --accent-soft: #E6E9FB;
+    --shadow: 0 18px 40px rgba(20, 22, 31, .12), 0 2px 6px rgba(20, 22, 31, .06);
+    --display: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+    --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --ease: cubic-bezier(.2, .7, .3, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; min-height: 100vh; }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- bar ---------- */
+  .nav { position: sticky; top: 0; z-index: 50; background: var(--panel); border-bottom: 1px solid var(--line-2); }
+  .nav-inner { position: relative; display: flex; align-items: center; gap: 8px; height: 72px; padding-inline: 28px; max-width: 1440px; margin-inline: auto; }
+  .logo { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; margin-right: 20px; line-height: 1; }
+  .nav-list { display: flex; align-items: center; gap: 2px; list-style: none; margin: 0; padding: 0; }
+  .nav-btn {
+    display: inline-flex; align-items: center; gap: 6px; height: 40px; padding-inline: 12px;
+    border: 0; background: transparent; border-radius: 6px; cursor: pointer;
+    font-size: 14.5px; font-weight: 500; color: var(--ink-2); text-decoration: none;
+    transition: color .15s, background-color .15s;
+  }
+  .nav-btn:hover, .nav-btn[aria-expanded="true"] { color: var(--ink); background: var(--paper); }
+  .nav-btn svg { width: 12px; height: 12px; transition: transform .25s var(--ease); }
+  .nav-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .indicator { position: absolute; bottom: -1px; left: 0; width: 0; height: 2px; background: var(--accent); opacity: 0; transition: left .28s var(--ease), width .28s var(--ease), opacity .2s; }
+  .indicator.is-on { opacity: 1; }
+  .cta {
+    margin-left: auto; height: 40px; padding-inline: 18px; border-radius: 6px;
+    background: var(--accent); color: #fff; font-weight: 600; font-size: 14px;
+    text-decoration: none; display: inline-flex; align-items: center;
+    transition: transform .2s var(--ease), filter .2s;
+  }
+  .cta:hover { transform: translateY(-1px); filter: brightness(1.08); }
+  .burger { display: none; margin-left: auto; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 6px; background: transparent; cursor: pointer; position: relative; z-index: 61; }
+  .burger span { display: block; width: 18px; height: 2px; background: var(--ink); margin: 3px auto; transition: transform .25s var(--ease), opacity .2s; }
+  .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+  .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+  /* ---------- dropdown host (one container that morphs between menus) ---------- */
+  .host {
+    position: absolute; top: 100%; left: 0; z-index: 49;
+    background: var(--panel); border: 1px solid var(--line); border-top: 0;
+    border-radius: 0 0 12px 12px; box-shadow: var(--shadow); overflow: hidden;
+    opacity: 0; transform: translateY(-8px); pointer-events: none;
+    transition: opacity .22s var(--ease), transform .26s var(--ease), width .3s var(--ease), height .3s var(--ease), left .3s var(--ease);
+  }
+  .host.is-open { opacity: 1; transform: none; pointer-events: auto; }
+  .panel { position: absolute; top: 0; left: 0; padding: 26px 28px 24px; opacity: 0; pointer-events: none; transition: opacity .18s var(--ease); }
+  .panel.is-active { opacity: 1; pointer-events: auto; }
+  .panel.measure { visibility: hidden; opacity: 1; }
+
+  .eyebrow { font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: .12em; text-transform: uppercase; line-height: 1; margin: 0; }
+  .sub { font-size: 12.5px; color: var(--mute); margin: 4px 0 0; }
+  .col-head { padding-bottom: 12px; border-bottom: 1px solid var(--line-2); margin-bottom: 10px; }
+  .links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  .links a { display: block; padding: 7px 8px; margin-inline: -8px; border-radius: 6px; text-decoration: none; font-size: 14px; color: var(--ink); transition: background-color .15s, color .15s; }
+  .links a:hover { background: var(--paper); color: var(--accent); }
+  .links a .desc { display: block; font-size: 12.5px; color: var(--mute); margin-top: 1px; }
+  .hubs { display: flex; flex-direction: column; gap: 2px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line-2); }
+  .hubs a { font-size: 13px; color: var(--ink-2); text-decoration: none; padding: 3px 0; }
+  .hubs a:hover { color: var(--accent); }
+  .hubs + .all { margin-top: 8px; }
+  .all { display: flex; align-items: center; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line-2); font-size: 13px; font-weight: 600; text-decoration: none; color: var(--ink); }
+  .all:hover { color: var(--accent); }
+  .all::after { content: "\2192"; transition: transform .2s var(--ease); }
+  .all:hover::after { transform: translateX(3px); }
+
+  .mega { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 1.15fr; gap: 28px; max-width: 1384px; margin-inline: auto; }
+  .featured { border: 1px dashed var(--line); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px; background: var(--paper); }
+  .featured .hatch { height: 96px; }
+  .featured h4 { margin: 0; font-family: var(--display); font-size: 22px; font-weight: 600; line-height: 1.05; text-transform: uppercase; letter-spacing: .02em; }
+  .featured p { margin: 0; font-size: 13px; color: var(--ink-2); }
+  .featured .mini { margin-top: auto; align-self: flex-start; padding: 8px 12px; border-radius: 6px; background: var(--ink); color: var(--paper); font-size: 13px; font-weight: 600; text-decoration: none; }
+  .hatch { background: repeating-linear-gradient(135deg, var(--hatch-a) 0 6px, var(--hatch-b) 6px 7px); border: 1px solid var(--line-2); border-radius: 6px; }
+
+  .list-panel { width: max-content; max-width: 420px; }
+  .list-panel > .eyebrow { font-size: 14px; letter-spacing: .16em; color: var(--mute); margin-bottom: 10px; }
+  .foot { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 2px; }
+  .foot a { padding: 6px 8px; margin-inline: -8px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; }
+  .foot a:hover { background: var(--paper); color: var(--accent); }
+  .topics { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 0 4px; }
+  .topics a { font-size: 12px; padding: 3px 9px; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; color: var(--ink-2); }
+  .topics a:hover { border-color: var(--accent); color: var(--accent); }
+
+  .locs-wrap { max-width: 1384px; margin-inline: auto; }
+  .locs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+  .loc { text-decoration: none; display: flex; flex-direction: column; gap: 8px; border-radius: 10px; padding: 8px; margin: -8px; transition: background-color .15s; }
+  .loc:hover { background: var(--paper); }
+  .loc .hatch { aspect-ratio: 4 / 3; max-width: 100%; transition: transform .35s var(--ease); }
+  .loc:hover .hatch { transform: translateY(-2px); }
+  .loc h4 { margin: 0; font-family: var(--display); font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; line-height: 1; }
+  .loc .addr { font-size: 12.5px; color: var(--mute); margin: 0; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tags span { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
+  .locs-foot { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-2); }
+  .locs-foot .all { margin: 0; padding: 0; border: 0; }
+  .locs-foot .soon { font-size: 13px; color: var(--mute); text-decoration: none; }
+  .locs-foot .soon b { font-weight: 600; color: var(--ink-2); }
+
+  /* ---------- mobile drawer ---------- */
+  .drawer { position: fixed; inset: 0; z-index: 60; background: var(--panel); display: none; flex-direction: column; }
+  body.drawer-open { overflow: hidden; }
+  body.drawer-open .drawer { display: flex; }
+  .drawer-top { display: flex; align-items: center; height: 64px; padding-inline: 20px; border-bottom: 1px solid var(--line-2); flex-shrink: 0; }
+  .drawer-top .logo { margin: 0; font-size: 22px; }
+  .drawer-top .burger { display: block; }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 8px 20px 20px; }
+  .acc { border-bottom: 1px solid var(--line-2); opacity: 0; transform: translateY(10px); }
+  body.drawer-open .acc { animation: rise .45s var(--ease) forwards; animation-delay: calc(var(--i) * 45ms); }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .acc-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border: 0; background: transparent; cursor: pointer; text-align: left; font-family: var(--display); font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); }
+  .acc-btn svg { width: 14px; height: 14px; transition: transform .25s var(--ease); }
+  .acc-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .acc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s var(--ease); }
+  .acc.is-open .acc-body { grid-template-rows: 1fr; }
+  .acc-body > div { overflow: hidden; }
+  .acc-inner { padding: 0 0 16px; display: flex; flex-direction: column; gap: 28px; }
+  .acc-inner .eyebrow { font-size: 15px; letter-spacing: .14em; color: var(--mute); margin-bottom: 4px; }
+  .acc-inner .list-panel { width: auto; max-width: none; }
+  .drawer-cta { padding: 12px 20px 16px; border-top: 1px solid var(--line-2); flex-shrink: 0; }
+  .drawer-cta .cta { width: 100%; justify-content: center; margin: 0; height: 48px; }
+
+  @media (max-width: 1080px) {
+    .nav-inner { padding-inline: 20px; }
+    .logo { margin-right: 8px; }
+    .nav-btn { padding-inline: 9px; font-size: 14px; }
+    .mega { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .featured { display: none; }
+  }
+  @media (max-width: 899px) {
+    .nav-inner { height: 64px; }
+    .nav-list, .nav-inner > .cta, .host, .indicator { display: none; }
+    .burger { display: block; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+    .acc { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav-inner" id="nav-inner">
+    <a class="logo" href="/">Until</a>
+
+    <ul class="nav-list" id="navlist">
+      <li><button type="button" class="nav-btn" data-menu="spaces" aria-expanded="false" aria-controls="panel-spaces">Spaces<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>
+      <li><button type="button" class="nav-btn" data-menu="memberships" aria-expanded="false" aria-controls="panel-memberships">Memberships<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>
+      <li><button type="button" class="nav-btn" data-menu="locations" aria-expanded="false" aria-controls="panel-locations">Locations<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>
+      <li><button type="button" class="nav-btn" data-menu="find" aria-expanded="false" aria-controls="panel-find">Find a practitioner<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>
+      <li><button type="button" class="nav-btn" data-menu="resources" aria-expanded="false" aria-controls="panel-resources">Resources<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>
+    </ul>
+
+    <span class="indicator" id="indicator" aria-hidden="true"></span>
+    <a class="cta" href="/apply-now">Apply now</a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+
+  <div class="host" id="host">
+
+    <!-- SPACES (practitioners) -->
+    <div class="panel is-mega" id="panel-spaces" data-panel="spaces">
+      <div class="mega">
+        <div>
+          <div class="col-head"><h3 class="eyebrow">Train</h3><p class="sub">Gym floor &amp; studios</p></div>
+          <ul class="links">
+            <li><a href="/gym-space-to-rent">Personal trainers</a></li>
+            <li><a href="/pilates-room-to-rent">Pilates instructors</a></li>
+          </ul>
+          <a class="all" href="/industries/train">All Train</a>
+        </div>
+        <div>
+          <div class="col-head"><h3 class="eyebrow">Treat</h3><p class="sub">Treatment rooms</p></div>
+          <ul class="links">
+            <li><a href="/physiotherapy-room-to-rent">Physiotherapists</a></li>
+            <li><a href="/osteopathy-room-to-rent">Osteopaths</a></li>
+            <li><a href="/chiropractic-room-to-rent">Chiropractors</a></li>
+            <li><a href="/massage-therapists">Massage therapists</a></li>
+            <li><a href="/acupuncturists">Acupuncturists</a></li>
+            <li><a href="/podiatrists">Podiatrists</a></li>
+            <li><a href="/medical-aesthetics">Medical aesthetics</a></li>
+          </ul>
+          <a class="all" href="/industries/treat">All Treat</a>
+        </div>
+        <div>
+          <div class="col-head"><h3 class="eyebrow">Coach</h3><p class="sub">Therapy &amp; coaching rooms</p></div>
+          <ul class="links">
+            <li><a href="/therapists">Therapists</a></li>
+            <li><a href="/counselling">Counsellors</a></li>
+            <li><a href="/psychotherapy-room-to-rent">Psychotherapists</a></li>
+            <li><a href="/nutritionist-room-to-rent">Nutritionists</a></li>
+            <li><a href="/business-coaches">Business &amp; life coaches</a></li>
+          </ul>
+          <a class="all" href="/industries/coach">All Coach</a>
+        </div>
+        <div>
+          <div class="col-head"><h3 class="eyebrow">Consult</h3><p class="sub">Medical &amp; dental</p></div>
+          <ul class="links">
+            <li><a href="/medical-room-to-rent">Medical consultants</a></li>
+            <li><a href="/dental-surgery-to-rent">Dentists</a></li>
+            <li><a href="/dental/cbct-scanner-available">CBCT scanner</a></li>
+          </ul>
+          <div class="hubs"><a href="/industries/consult/medical">Medical at UNTIL</a><a href="/industries/consult/dental">Dental at UNTIL</a></div>
+          <a class="all" href="/industries/consult">All Consult</a>
+        </div>
+        <div class="featured">
+          <div class="hatch"></div>
+          <h4>Not sure which space fits?</h4>
+          <p>Compare Thrive, Flex and Teams, or apply and we’ll match you to the right club.</p>
+          <a class="mini" href="/memberships">Compare memberships</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEMBERSHIPS -->
+    <div class="panel" id="panel-memberships" data-panel="memberships">
+      <div class="list-panel">
+        <ul class="links">
+          <li><a href="/memberships/thrive">Thrive<span class="desc">For professionals who want everything UNTIL offers</span></a></li>
+          <li><a href="/memberships/teams">Teams<span class="desc">For small businesses with more than one employee</span></a></li>
+          <li><a href="/memberships">Pay as you go credits<span class="desc">Buy a credit pack and book any space by the hour</span></a></li>
+        </ul>
+        <div class="foot">
+          <a href="/memberships">Compare memberships</a>
+          <a href="/members">Why UNTIL</a>
+          <a href="/membershipbrochure">Download the brochure</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOCATIONS -->
+    <div class="panel is-mega" id="panel-locations" data-panel="locations">
+      <div class="locs-wrap">
+        <div class="locs">
+          <a class="loc" href="/locations/soho"><div class="hatch"></div><h4>Soho</h4><p class="addr">111 Charing Cross Rd</p><div class="tags"><span>Train</span><span>Treat</span><span>Coach</span></div></a>
+          <a class="loc" href="/locations/liverpool-st"><div class="hatch"></div><h4>Liverpool St</h4><p class="addr">280 Bishopsgate</p><div class="tags"><span>Train</span><span>Treat</span></div></a>
+          <a class="loc" href="/locations/marylebone"><div class="hatch"></div><h4>Marylebone</h4><p class="addr">105 Wigmore Street</p><div class="tags"><span>Medical</span><span>Dental</span></div></a>
+          <a class="loc" href="/locations/canary-wharf"><div class="hatch"></div><h4>Canary Wharf</h4><p class="addr">30 South Colonnade</p><div class="tags"><span>Train</span><span>Treat</span><span>Coach</span><span>Medical</span><span>Dental</span></div></a>
+        </div>
+        <div class="locs-foot">
+          <a class="all" href="/locations">All locations</a>
+          <a class="soon" href="/new-york">Coming soon: <b>New York</b></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIND A PRACTITIONER (clients) -->
+    <div class="panel" id="panel-find" data-panel="find">
+      <div class="list-panel">
+        <h3 class="eyebrow">For clients</h3>
+        <ul class="links">
+          <li><a href="/health-concierge/personal-trainers">Personal trainers</a></li>
+          <li><a href="/health-concierge/find-your-personal-trainer">Your first PT session free</a></li>
+          <li><a href="/health-concierge/physiotherapists">Physiotherapists</a></li>
+          <li><a href="/health-concierge/nutritionists">Nutritionists</a></li>
+          <li><a href="/health-concierge/aesthetics-clinic">Aesthetics specialists</a></li>
+          <li><a href="/stride-blood-panel">Blood testing (Stride panel)</a></li>
+        </ul>
+        <div class="foot"><a href="/health-concierge">Browse all practitioners</a></div>
+      </div>
+    </div>
+
+    <!-- RESOURCES -->
+    <div class="panel" id="panel-resources" data-panel="resources">
+      <div class="list-panel">
+        <ul class="links">
+          <li><a href="/journal">Journal</a></li>
+        </ul>
+        <div class="topics">
+          <a href="/categories/train">Train</a><a href="/categories/treat">Treat</a><a href="/categories/coach">Coach</a><a href="/categories/dental">Dental</a><a href="/categories/medical">Medical</a>
+        </div>
+        <ul class="links">
+          <li><a href="/state-of-industry">State of the Industry 2026</a></li>
+          <li><a href="/forms/download-your-personal-trainer-business-plan-template">PT business plan template</a></li>
+        </ul>
+        <div class="foot">
+          <a href="/careers">Careers</a>
+          <a href="mailto:memberships@until.co.uk">Contact</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- Mobile drawer (under 900px). Built from the desktop panels by the script below. -->
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="drawer-top">
+    <a class="logo" href="/">Until</a>
+    <button class="burger" id="burger-close" type="button" aria-expanded="true" aria-label="Close menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+  <div class="drawer-cta"><a class="cta" href="/apply-now">Apply now</a></div>
+</div>
+
+<script>
+(function () {
+  var nav = document.getElementById('nav');
+  var inner = document.getElementById('nav-inner');
+  var navlist = document.getElementById('navlist');
+  var host = document.getElementById('host');
+  var indicator = document.getElementById('indicator');
+  var burger = document.getElementById('burger');
+  var burgerClose = document.getElementById('burger-close');
+  var drawerBody = document.getElementById('drawer-body');
+  var openKey = null, openTimer = null, closeTimer = null;
+
+  var isMobile = function () { return window.matchMedia('(max-width: 899px)').matches; };
+  var btnFor = function (k) { return navlist.querySelector('[data-menu="' + k + '"]'); };
+
+  // ---------- desktop dropdowns ----------
+  function openMenu(key) {
+    clearTimeout(openTimer); clearTimeout(closeTimer);
+    if (isMobile()) return;
+    var panel = host.querySelector('[data-panel="' + key + '"]');
+    var btn = btnFor(key);
+    var navW = nav.clientWidth;
+    var mega = panel.classList.contains('is-mega');
+
+    panel.classList.add('measure');
+    panel.style.width = '';
+    var w = mega ? navW : Math.min(panel.offsetWidth, navW - 32);
+    panel.style.width = w + 'px';
+    var h = panel.offsetHeight;
+    panel.classList.remove('measure');
+
+    var left = 0;
+    if (!mega) {
+      var br = btn.getBoundingClientRect(), nr = nav.getBoundingClientRect();
+      left = Math.max(16, Math.min(br.left - nr.left - 8, navW - w - 16));
+    }
+    var wasOpen = host.classList.contains('is-open');
+    host.style.width = w + 'px';
+    host.style.height = h + 'px';
+    host.style.left = left + 'px';
+    host.style.borderRadius = mega ? '0' : '0 0 12px 12px';
+    if (!wasOpen) requestAnimationFrame(function () { host.classList.add('is-open'); });
+
+    host.querySelectorAll('.panel.is-active').forEach(function (p) { p.classList.remove('is-active'); });
+    panel.classList.add('is-active');
+    navlist.querySelectorAll('[aria-expanded="true"]').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+    btn.setAttribute('aria-expanded', 'true');
+
+    var lr = btn.getBoundingClientRect(), ir = inner.getBoundingClientRect();
+    indicator.style.left = (lr.left - ir.left) + 'px';
+    indicator.style.width = lr.width + 'px';
+    indicator.classList.add('is-on');
+    openKey = key;
+  }
+
+  function closeNow() {
+    clearTimeout(openTimer); clearTimeout(closeTimer);
+    host.classList.remove('is-open');
+    host.querySelectorAll('.panel.is-active').forEach(function (p) { p.classList.remove('is-active'); });
+    navlist.querySelectorAll('[aria-expanded="true"]').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+    indicator.classList.remove('is-on');
+    openKey = null;
+  }
+  function scheduleClose() { clearTimeout(closeTimer); closeTimer = setTimeout(closeNow, 200); }
+
+  // Hover intent: wait 120ms before the first open, switch instantly once a menu is open.
+  navlist.addEventListener('mouseover', function (e) {
+    var b = e.target.closest('[data-menu]'); if (!b) return;
+    clearTimeout(closeTimer); clearTimeout(openTimer);
+    var key = b.dataset.menu;
+    if (openKey && openKey !== key) openMenu(key);
+    else if (!openKey) openTimer = setTimeout(function () { openMenu(key); }, 120);
+  });
+  navlist.addEventListener('mouseleave', function () { clearTimeout(openTimer); scheduleClose(); });
+  host.addEventListener('mouseenter', function () { clearTimeout(closeTimer); });
+  host.addEventListener('mouseleave', scheduleClose);
+
+  // Click / tap / Enter / Space toggles.
+  navlist.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-menu]'); if (!b) return;
+    if (openKey === b.dataset.menu) closeNow(); else openMenu(b.dataset.menu);
+  });
+
+  nav.addEventListener('focusout', function (e) { if (!nav.contains(e.relatedTarget)) closeNow(); });
+  document.addEventListener('click', function (e) { if (openKey && !nav.contains(e.target)) closeNow(); });
+  window.addEventListener('scroll', function () { if (openKey) closeNow(); }, { passive: true });
+  window.addEventListener('resize', function () { closeNow(); if (!isMobile()) toggleDrawer(false); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (document.body.classList.contains('drawer-open')) { toggleDrawer(false); burger.focus(); return; }
+    if (openKey) { var k = openKey; closeNow(); btnFor(k).focus(); }
+  });
+
+  // ---------- mobile drawer, built from the same markup ----------
+  var chev = '<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  navlist.querySelectorAll('[data-menu]').forEach(function (b, i) {
+    var key = b.dataset.menu;
+    var panel = document.getElementById('panel-' + key);
+    var content;
+    if (key === 'spaces') {
+      content = [].map.call(panel.querySelectorAll('.mega > div:not(.featured)'), function (col) {
+        var head = col.querySelector('.eyebrow').textContent;
+        var hubs = col.querySelector('.hubs');
+        return '<div><h3 class="eyebrow">' + head + '</h3>' + col.querySelector('.links').outerHTML + (hubs ? hubs.outerHTML : '') + col.querySelector('.all').outerHTML + '</div>';
+      }).join('');
+    } else if (key === 'locations') {
+      content = '<ul class="links">' + [].map.call(panel.querySelectorAll('.loc'), function (l) {
+        var tags = [].map.call(l.querySelectorAll('.tags span'), function (t) { return t.textContent; }).join(', ');
+        return '<li><a href="' + l.getAttribute('href') + '">' + l.querySelector('h4').textContent + '<span class="desc">' + tags + '</span></a></li>';
+      }).join('') + '</ul>' + panel.querySelector('.locs-foot').innerHTML;
+    } else {
+      content = panel.innerHTML;
+    }
+    var label = b.childNodes[0].textContent;
+    var acc = document.createElement('div');
+    acc.className = 'acc';
+    acc.style.setProperty('--i', i);
+    acc.innerHTML = '<button type="button" class="acc-btn" aria-expanded="false">' + label + chev + '</button>' +
+      '<div class="acc-body"><div><div class="acc-inner">' + content + '</div></div></div>';
+    drawerBody.appendChild(acc);
+  });
+
+  drawerBody.addEventListener('click', function (e) {
+    var b = e.target.closest('.acc-btn'); if (!b) return;
+    var acc = b.parentElement, open = !acc.classList.contains('is-open');
+    acc.classList.toggle('is-open', open);
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  function toggleDrawer(open) {
+    document.body.classList.toggle('drawer-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) { burgerClose.focus(); }
+    else {
+      drawerBody.querySelectorAll('.acc.is-open').forEach(function (a) {
+        a.classList.remove('is-open');
+        a.querySelector('.acc-btn').setAttribute('aria-expanded', 'false');
+      });
+    }
+  }
+  burger.addEventListener('click', function () { toggleDrawer(true); });
+  burgerClose.addEventListener('click', function () { toggleDrawer(false); burger.focus(); });
+})();
+</script>
+</body>
+</html>
