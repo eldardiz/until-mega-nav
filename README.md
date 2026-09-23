@@ -2,7 +2,7 @@
 
 Interactive wireframe of the proposed navigation for [until.co.uk](https://www.until.co.uk). Structure and behaviour only, no visual design yet.
 
-Open `index.html` in a browser. v2 (client feedback, 23 Sep 2026) is `index.html`; the first version is kept at `v1.html`. No build step, no dependencies (Google Fonts only, with system fallbacks).
+Open `index.html` in a browser. v2 (client feedback, 23 Sep 2026) is `index.html`; the first version is kept at `v1.html`. No build step, no dependencies (UNTIL's own fonts: DIN 2014 via their Adobe Fonts kit, Tungsten from their Webflow assets).
 
 ## Structure
 
