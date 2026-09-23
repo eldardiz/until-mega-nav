@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UNTIL Mega-nav Wireframe v2</title>
+<title>UNTIL Mega-nav Wireframe</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -82,31 +82,14 @@
   .links a { display: block; padding: 7px 8px; margin-inline: -8px; border-radius: 6px; text-decoration: none; font-size: 14px; color: var(--ink); transition: background-color .15s, color .15s; }
   .links a:hover { background: var(--paper); color: var(--accent); }
   .links a .desc { display: block; font-size: 12.5px; color: var(--mute); margin-top: 1px; }
+  .hubs { display: flex; flex-direction: column; gap: 2px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line-2); }
+  .hubs a { font-size: 13px; color: var(--ink-2); text-decoration: none; padding: 3px 0; }
+  .hubs a:hover { color: var(--accent); }
+  .hubs + .all { margin-top: 8px; }
   .all { display: flex; align-items: center; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line-2); font-size: 13px; font-weight: 600; text-decoration: none; color: var(--ink); }
   .all:hover { color: var(--accent); }
   .all::after { content: "\2192"; transition: transform .2s var(--ease); }
   .all:hover::after { transform: translateX(3px); }
-
-  .stack > .grp + .grp { margin-top: 26px; }
-  .lead { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; margin: 0 0 12px; border-radius: 8px; background: var(--accent-soft); text-decoration: none; transition: background-color .15s; }
-  .lead:hover { background: #D8DDF8; }
-  .lead-t { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 15px; color: var(--accent); }
-  .lead-t::after { content: "\2192"; transition: transform .2s var(--ease); }
-  .lead:hover .lead-t::after { transform: translateX(3px); }
-  .lead .desc { font-size: 12.5px; color: var(--ink-2); }
-  .minor { margin: 0 0 4px; font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
-
-  /* ---------- v2 change notes (review aid, not part of the nav) ---------- */
-  .notes { max-width: 820px; margin: 0 auto; padding: 56px 28px 80px; }
-  .notes h1 { font-family: var(--display); font-weight: 700; font-size: 34px; line-height: 1; letter-spacing: .04em; text-transform: uppercase; margin: 0 0 6px; text-wrap: balance; }
-  .notes > p { margin: 0 0 28px; color: var(--ink-2); }
-  .notes h2 { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); margin: 28px 0 10px; }
-  .notes ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
-  .notes li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line-2); font-size: 14px; }
-  .notes li b { font-weight: 600; }
-  .notes .who { font-size: 12.5px; color: var(--mute); }
-  .notes a { color: var(--accent); }
-  @media (max-width: 600px) { .notes li { grid-template-columns: 1fr; gap: 2px; } }
 
   .mega { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 1.15fr; gap: 28px; max-width: 1384px; margin-inline: auto; }
   .featured { border: 1px dashed var(--line); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px; background: var(--paper); }
@@ -137,6 +120,8 @@
   .tags span { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
   .locs-foot { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-2); }
   .locs-foot .all { margin: 0; padding: 0; border: 0; }
+  .locs-foot .soon { font-size: 13px; color: var(--mute); text-decoration: none; }
+  .locs-foot .soon b { font-weight: 600; color: var(--ink-2); }
 
   /* ---------- mobile drawer ---------- */
   .drawer { position: fixed; inset: 0; z-index: 60; background: var(--panel); display: none; flex-direction: column; }
@@ -186,7 +171,7 @@
     <a class="logo" href="/">Until</a>
 
     <ul class="nav-list" id="navlist">
-      <li><button type="button" class="nav-btn" data-menu="spaces" aria-expanded="false" aria-controls="panel-spaces">Find your space<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>
+      <li><button type="button" class="nav-btn" data-menu="spaces" aria-expanded="false" aria-controls="panel-spaces">Spaces<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>
       <li><button type="button" class="nav-btn" data-menu="memberships" aria-expanded="false" aria-controls="panel-memberships">Memberships<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>
       <li><button type="button" class="nav-btn" data-menu="locations" aria-expanded="false" aria-controls="panel-locations">Locations<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>
       <li><button type="button" class="nav-btn" data-menu="find" aria-expanded="false" aria-controls="panel-find">Find a practitioner<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>
@@ -203,58 +188,52 @@
     <!-- SPACES (practitioners) -->
     <div class="panel is-mega" id="panel-spaces" data-panel="spaces">
       <div class="mega">
-        <div class="grp">
-          <div class="col-head"><h3 class="eyebrow">Train</h3><p class="sub">Gym floor &amp; Pilates</p></div>
+        <div>
+          <div class="col-head"><h3 class="eyebrow">Train</h3><p class="sub">Gym floor &amp; studios</p></div>
           <ul class="links">
-            <li><a href="/gym-space-to-rent">Gym space to rent</a></li>
-            <li><a href="/pilates-room-to-rent">Pilates room to rent</a></li>
+            <li><a href="/gym-space-to-rent">Personal trainers</a></li>
+            <li><a href="/pilates-room-to-rent">Pilates instructors</a></li>
           </ul>
           <a class="all" href="/industries/train">All Train</a>
         </div>
-        <div class="grp">
+        <div>
           <div class="col-head"><h3 class="eyebrow">Treat</h3><p class="sub">Treatment rooms</p></div>
           <ul class="links">
-            <li><a href="/physiotherapy-room-to-rent">Physiotherapy room to rent</a></li>
-            <li><a href="/osteopathy-room-to-rent">Osteopathy room to rent</a></li>
-            <li><a href="/chiropractic-room-to-rent">Chiropractic room to rent</a></li>
-            <li><a href="/massage-therapists">Massage room to rent</a></li>
-            <li><a href="/acupuncturists">Acupuncture room to rent</a></li>
-            <li><a href="/podiatrists">Podiatry room to rent</a></li>
+            <li><a href="/physiotherapy-room-to-rent">Physiotherapists</a></li>
+            <li><a href="/osteopathy-room-to-rent">Osteopaths</a></li>
+            <li><a href="/chiropractic-room-to-rent">Chiropractors</a></li>
+            <li><a href="/massage-therapists">Massage therapists</a></li>
+            <li><a href="/acupuncturists">Acupuncturists</a></li>
+            <li><a href="/podiatrists">Podiatrists</a></li>
+            <li><a href="/medical-aesthetics">Medical aesthetics</a></li>
           </ul>
           <a class="all" href="/industries/treat">All Treat</a>
         </div>
-        <div class="grp">
+        <div>
           <div class="col-head"><h3 class="eyebrow">Coach</h3><p class="sub">Therapy &amp; coaching rooms</p></div>
           <ul class="links">
-            <li><a href="/therapists">Therapy room to rent</a></li>
-            <li><a href="/counselling">Counselling room to rent</a></li>
-            <li><a href="/psychotherapy-room-to-rent">Psychotherapy room to rent</a></li>
-            <li><a href="/nutritionist-room-to-rent">Nutritionist room to rent</a></li>
-            <li><a href="/business-coaches">Coaching room to rent</a></li>
+            <li><a href="/therapists">Therapists</a></li>
+            <li><a href="/counselling">Counsellors</a></li>
+            <li><a href="/psychotherapy-room-to-rent">Psychotherapists</a></li>
+            <li><a href="/nutritionist-room-to-rent">Nutritionists</a></li>
+            <li><a href="/business-coaches">Business &amp; life coaches</a></li>
           </ul>
           <a class="all" href="/industries/coach">All Coach</a>
         </div>
-        <div class="stack">
-          <div class="grp">
-            <div class="col-head"><h3 class="eyebrow">Medical</h3><p class="sub">Clinic &amp; aesthetics rooms</p></div>
-            <ul class="links">
-              <li><a href="/medical-room-to-rent">Medical room to rent</a></li>
-              <li><a href="/medical-aesthetics">Medical aesthetics room to rent</a></li>
-            </ul>
-            <a class="all" href="/industries/consult/medical">Medical at UNTIL</a>
-          </div>
-          <div class="grp">
-            <div class="col-head"><h3 class="eyebrow">Dental</h3><p class="sub">Fully equipped surgeries</p></div>
-            <ul class="links">
-              <li><a href="/dental-surgery-to-rent">Dental surgery to rent</a></li>
-            </ul>
-            <a class="all" href="/industries/consult/dental">Dental at UNTIL</a>
-          </div>
+        <div>
+          <div class="col-head"><h3 class="eyebrow">Consult</h3><p class="sub">Medical &amp; dental</p></div>
+          <ul class="links">
+            <li><a href="/medical-room-to-rent">Medical consultants</a></li>
+            <li><a href="/dental-surgery-to-rent">Dentists</a></li>
+            <li><a href="/dental/cbct-scanner-available">CBCT scanner</a></li>
+          </ul>
+          <div class="hubs"><a href="/industries/consult/medical">Medical at UNTIL</a><a href="/industries/consult/dental">Dental at UNTIL</a></div>
+          <a class="all" href="/industries/consult">All Consult</a>
         </div>
         <div class="featured">
           <div class="hatch"></div>
           <h4>Not sure which space fits?</h4>
-          <p>Compare Thrive and Teams, or apply and we’ll match you to the right club.</p>
+          <p>Compare Thrive, Flex and Teams, or apply and we’ll match you to the right club.</p>
           <a class="mini" href="/memberships">Compare memberships</a>
         </div>
       </div>
@@ -266,10 +245,12 @@
         <ul class="links">
           <li><a href="/memberships/thrive">Thrive<span class="desc">For professionals who want everything UNTIL offers</span></a></li>
           <li><a href="/memberships/teams">Teams<span class="desc">For small businesses with more than one employee</span></a></li>
+          <li><a href="/memberships">Pay as you go credits<span class="desc">Buy a credit pack and book any space by the hour</span></a></li>
         </ul>
         <div class="foot">
           <a href="/memberships">Compare memberships</a>
           <a href="/members">Why UNTIL</a>
+          <a href="/membershipbrochure">Download the brochure</a>
         </div>
       </div>
     </div>
@@ -285,6 +266,7 @@
         </div>
         <div class="locs-foot">
           <a class="all" href="/locations">All locations</a>
+          <a class="soon" href="/new-york">Coming soon: <b>New York</b></a>
         </div>
       </div>
     </div>
@@ -293,15 +275,15 @@
     <div class="panel" id="panel-find" data-panel="find">
       <div class="list-panel">
         <h3 class="eyebrow">For clients</h3>
-        <a class="lead" href="/health-concierge"><span class="lead-t">Health Concierge</span><span class="desc">Tell us your goal and we’ll match you with the right practitioner</span></a>
-        <p class="minor">Or go straight to</p>
         <ul class="links">
-          <li><a href="/health-concierge/personal-trainers">Find a personal trainer</a></li>
-          <li><a href="/health-concierge/physiotherapists">Find a physiotherapist</a></li>
-          <li><a href="/health-concierge/nutritionists">Find a nutritionist</a></li>
-          <li><a href="/health-concierge/aesthetics-clinic">Find an aesthetics specialist</a></li>
-          <li><a href="/stride-blood-panel">Book a blood test (Stride panel)</a></li>
+          <li><a href="/health-concierge/personal-trainers">Personal trainers</a></li>
+          <li><a href="/health-concierge/find-your-personal-trainer">Your first PT session free</a></li>
+          <li><a href="/health-concierge/physiotherapists">Physiotherapists</a></li>
+          <li><a href="/health-concierge/nutritionists">Nutritionists</a></li>
+          <li><a href="/health-concierge/aesthetics-clinic">Aesthetics specialists</a></li>
+          <li><a href="/stride-blood-panel">Blood testing (Stride panel)</a></li>
         </ul>
+        <div class="foot"><a href="/health-concierge">Browse all practitioners</a></div>
       </div>
     </div>
 
@@ -316,6 +298,7 @@
         </div>
         <ul class="links">
           <li><a href="/state-of-industry">State of the Industry 2026</a></li>
+          <li><a href="/forms/download-your-personal-trainer-business-plan-template">PT business plan template</a></li>
         </ul>
         <div class="foot">
           <a href="/careers">Careers</a>
@@ -326,30 +309,6 @@
 
   </div>
 </header>
-
-<main class="notes">
-  <h1>Mega-nav v2</h1>
-  <p>Updated with James and Bari’s feedback. Open the menus above to review. The <a href="/v1.html">first version</a> is still available for comparison.</p>
-
-  <h2>What changed</h2>
-  <ul>
-    <li><span><b>Find your space</b><br><span class="who">James, Bari</span></span><span>“Spaces” is now “Find your space”, and every link uses its page’s search term (“Gym space to rent”, “Physiotherapy room to rent”). “Personal trainers” no longer appears twice: room links end in “to rent”, client links start with “Find a”.</span></li>
-    <li><span><b>Train subline</b><br><span class="who">Bari</span></span><span>Now “Gym floor &amp; Pilates”, since there is no studio space.</span></li>
-    <li><span><b>Medical and Dental</b><br><span class="who">Bari</span></span><span>Consult is split into Medical and Dental. Each ends with a link to Medical at UNTIL or Dental at UNTIL. Medical aesthetics moved under Medical.</span></li>
-    <li><span><b>CBCT scanner</b><br><span class="who">Bari</span></span><span>Removed from the menu. It will be linked from the CBCT section on the dental surgery page instead.</span></li>
-    <li><span><b>Memberships</b><br><span class="who">Bari</span></span><span>Thrive and Teams only. Pay as you go and the brochure are removed. Compare memberships and Why UNTIL stay.</span></li>
-    <li><span><b>Locations</b><br><span class="who">Bari</span></span><span>New York removed.</span></li>
-    <li><span><b>Find a practitioner</b><br><span class="who">Bari</span></span><span>Health Concierge is the first, highlighted option, with the specialist pages below it. “Your first PT session free” is removed.</span></li>
-    <li><span><b>Resources</b><br><span class="who">Bari</span></span><span>PT business plan template removed.</span></li>
-  </ul>
-
-  <h2>Still to decide</h2>
-  <ul>
-    <li><span><b>PT offer page</b></span><span>/health-concierge/find-your-personal-trainer (and its /marylebone version) is still indexed and in the sitemap. It needs noindex if it is only for Meta ads.</span></li>
-    <li><span><b>Membership pages</b></span><span>/memberships/flex and /membershipbrochure are still public. Remove or hide them once Bari has reviewed the membership pages.</span></li>
-    <li><span><b>“Studio” wording</b></span><span>The Pilates page title says “Pilates Studios to Rent” and the gym page intro mentions “PT studios”. Worth aligning with “gym floor &amp; Pilates”.</span></li>
-  </ul>
-</main>
 
 <!-- Mobile drawer (under 900px). Built from the desktop panels by the script below. -->
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
@@ -462,9 +421,10 @@
     var panel = document.getElementById('panel-' + key);
     var content;
     if (key === 'spaces') {
-      content = [].map.call(panel.querySelectorAll('.mega .grp'), function (g) {
-        var head = g.querySelector('.eyebrow').textContent;
-        return '<div><h3 class="eyebrow">' + head + '</h3>' + g.querySelector('.links').outerHTML + g.querySelector('.all').outerHTML + '</div>';
+      content = [].map.call(panel.querySelectorAll('.mega > div:not(.featured)'), function (col) {
+        var head = col.querySelector('.eyebrow').textContent;
+        var hubs = col.querySelector('.hubs');
+        return '<div><h3 class="eyebrow">' + head + '</h3>' + col.querySelector('.links').outerHTML + (hubs ? hubs.outerHTML : '') + col.querySelector('.all').outerHTML + '</div>';
       }).join('');
     } else if (key === 'locations') {
       content = '<ul class="links">' + [].map.call(panel.querySelectorAll('.loc'), function (l) {
