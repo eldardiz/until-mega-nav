@@ -125,8 +125,9 @@
   .locs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
   .loc { text-decoration: none; display: flex; flex-direction: column; gap: 8px; border-radius: 12px; padding: 8px; margin: -8px; transition: background-color .15s; }
   .loc:hover { background: var(--soft); }
-  .loc .hatch { aspect-ratio: 4 / 3; max-width: 100%; transition: transform .35s var(--ease); }
-  .loc:hover .hatch { transform: translateY(-2px); }
+  /* Same photos as the club cards on until.co.uk/locations (Webflow CDN) */
+  .loc-img { display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 8px; background: var(--soft); transition: transform .35s var(--ease); }
+  .loc:hover .loc-img { transform: translateY(-2px); }
   .loc h4 { margin: 6px 0 0; font-family: var(--display); font-size: 36px; font-weight: 600; text-transform: uppercase; line-height: .9; color: var(--ink); }
   .loc .addr { font-size: 14px; color: var(--text); margin: 0; }
   .tags { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -287,10 +288,10 @@
     <div class="panel is-mega" id="panel-locations" data-panel="locations">
       <div class="locs-wrap">
         <div class="locs">
-          <a class="loc" href="/locations/soho"><div class="hatch"></div><h4>Soho</h4><p class="addr">111 Charing Cross Rd</p><div class="tags"><span>Train</span><span>Treat</span><span>Coach</span></div></a>
-          <a class="loc" href="/locations/liverpool-st"><div class="hatch"></div><h4>Liverpool St</h4><p class="addr">280 Bishopsgate</p><div class="tags"><span>Train</span><span>Treat</span></div></a>
-          <a class="loc" href="/locations/marylebone"><div class="hatch"></div><h4>Marylebone</h4><p class="addr">105 Wigmore Street</p><div class="tags"><span>Medical</span><span>Dental</span></div></a>
-          <a class="loc" href="/locations/canary-wharf"><div class="hatch"></div><h4>Canary Wharf</h4><p class="addr">30 South Colonnade</p><div class="tags"><span>Train</span><span>Treat</span><span>Coach</span><span>Medical</span><span>Dental</span></div></a>
+          <a class="loc" href="/locations/soho"><img class="loc-img" src="https://cdn.prod.website-files.com/64649432a9fa6bf423043c60/647758b9c60b916c61754b36_Soho-CTA%20(1)-p-800.png" alt="Inside UNTIL Soho" width="800" height="533" loading="lazy"><h4>Soho</h4><p class="addr">111 Charing Cross Rd</p><div class="tags"><span>Train</span><span>Treat</span><span>Coach</span></div></a>
+          <a class="loc" href="/locations/liverpool-st"><img class="loc-img" src="https://cdn.prod.website-files.com/64649432a9fa6bf423043c60/647758d1589640c98df0b5b8_LST-CTA%20(1)-p-800.png" alt="Inside UNTIL Liverpool Street" width="800" height="533" loading="lazy"><h4>Liverpool St</h4><p class="addr">280 Bishopsgate</p><div class="tags"><span>Train</span><span>Treat</span></div></a>
+          <a class="loc" href="/locations/marylebone"><img class="loc-img" src="https://cdn.prod.website-files.com/64649432a9fa6bf423043c60/6554ce4be46bf3cfb19044d8_15-P1052500%400.25x-p-800.png" alt="Inside UNTIL Marylebone" width="800" height="533" loading="lazy"><h4>Marylebone</h4><p class="addr">105 Wigmore Street</p><div class="tags"><span>Medical</span><span>Dental</span></div></a>
+          <a class="loc" href="/locations/canary-wharf"><img class="loc-img" src="https://cdn.prod.website-files.com/64649432a9fa6bf423043c60/69ecccedd38284831b1c757c_wharf1%20(1)-p-800.jpg" alt="Inside UNTIL Canary Wharf" width="800" height="533" loading="lazy"><h4>Canary Wharf</h4><p class="addr">30 South Colonnade</p><div class="tags"><span>Train</span><span>Treat</span><span>Coach</span><span>Medical</span><span>Dental</span></div></a>
         </div>
         <div class="locs-foot">
           <a class="all" href="/locations">All locations</a>
