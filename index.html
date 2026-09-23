@@ -98,7 +98,8 @@
 
   .mega { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 1.15fr; gap: 32px; max-width: 1328px; margin-inline: auto; }
   .featured { border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; background: var(--soft); }
-  .featured .hatch { height: 110px; }
+  /* Photo from until.co.uk/memberships, where the card's button leads */
+  .featured .feat-img { display: block; width: 100%; height: 140px; object-fit: cover; border-radius: 8px; background: var(--panel); }
   .featured h4 { margin: 4px 0 0; font-family: var(--display); font-size: 36px; font-weight: 600; line-height: .9; text-transform: uppercase; color: var(--ink); text-wrap: balance; }
   .featured p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--text); }
   .featured .mini { margin-top: auto; align-self: flex-start; height: 40px; padding: 0 18px; display: inline-flex; align-items: center; border-radius: 8px; background: var(--accent); color: #fff; font-size: 16px; font-weight: 400; text-decoration: none; transition: background-color .2s; }
@@ -262,7 +263,7 @@
           </div>
         </div>
         <div class="featured">
-          <div class="hatch"></div>
+          <img class="feat-img" src="https://cdn.prod.website-files.com/6463557675a28f1b150ff1b2/6470a25389487940cd099e4d_0I8A9764-p-800.webp" alt="Members talking around the kitchen island at an UNTIL club" width="720" height="479" loading="lazy">
           <h4>Not sure which space fits?</h4>
           <p>Compare Thrive and Teams, or apply and we’ll match you to the right club.</p>
           <a class="mini" href="/memberships">Compare memberships</a>
